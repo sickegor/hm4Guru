@@ -2,6 +2,7 @@ package hm4.tests;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.WebDriverRunner;
 import org.junit.jupiter.api.*;
 
 import java.io.File;
@@ -11,7 +12,6 @@ import static com.codeborne.selenide.Selenide.$;
 
 
 public class SimpleTests {
-    String table = "\".table-responsive\"";
 
     @BeforeAll
     static void setUp() {
@@ -30,7 +30,7 @@ public class SimpleTests {
     @AfterEach
     void close() {
         System.out.println("### @BeforeEach close");
-        //    WebDriverRunner.closeWindow();
+            Selenide.closeWebDriver();
     }
 
     @Test
@@ -46,11 +46,12 @@ public class SimpleTests {
         $("#submit").click();
 
         $("#example-modal-sizes-title-lg").shouldHave(text("Thanks for submitting the form"));
-        $("#example-modal-sizes-title-lg").shouldHave(text("Thanks for submitting the form"));
-        $(table).shouldHave(text("Egor Egor2"));
-        $(table).shouldHave(text("Egor@Egor.Egor"));
-        $(table).shouldHave(text("Male"));
-        $(table).shouldHave(text("1234567890"));
-        $(table).shouldHave(text("pngegg.png"));
+        $(".table-responsive").shouldHave(text("Egor Egor2"),
+                text("Egor@Egor.Egor"),
+                text("Egor@Egor.Egor"),
+                text("1234567890"),
+                text("pngegg.png")
+                );
+
     }
 }
