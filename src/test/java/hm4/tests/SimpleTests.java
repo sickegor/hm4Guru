@@ -26,6 +26,5 @@ public class SimpleTests {
         $("#wiki-pages-box").$(byText("Show 2 more pages…")).click();
         $("#wiki-body").find(byText("Soft assertions")).click();
         $("#wiki-body").shouldHave(text("Using JUnit5 extend test class:"));
-        $("#wiki-body").shouldHave(text("Using JUnit5 extend test class"));
     }
 }
