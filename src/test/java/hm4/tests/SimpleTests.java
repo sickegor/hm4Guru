@@ -15,11 +15,10 @@ public class SimpleTests {
     static public void config() {
         Configuration.baseUrl = "https://github.com/";
         Configuration.browserSize = "1920x1080";
-        Configuration.browserPosition = "0x0";
     }
 
     @Test
-    void wikiJUnit5Test() {
+    void wikiTest() {
         open("selenide/selenide");
         $("#wiki-tab").click();
         $("#wiki-body").find(byText("Soft assertions")).click();
