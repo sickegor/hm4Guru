@@ -1,5 +1,6 @@
 package hm4.tests;
 
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.WebDriverRunner;
@@ -8,50 +9,33 @@ import org.junit.jupiter.api.*;
 import java.io.File;
 
 import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.open;
 
 
 public class SimpleTests {
 
     @BeforeAll
-    static void setUp() {
-        Configuration.holdBrowserOpen = true;
-        Configuration.baseUrl = "https://demoqa.com";
+    static public void config() {
+        Configuration.baseUrl = "https://github.com/";
         Configuration.browserSize = "1920x1080";
-        Configuration.browser = "chrome";
+        Configuration.browserPosition = "0x0";
     }
 
-    @BeforeEach
-    void openPage() {
-        System.out.println("### @BeforeEach open");
-        Selenide.open("/automation-practice-form");
-    }
-
-    @AfterEach
-    void close() {
-        System.out.println("### @BeforeEach close");
-            Selenide.closeWebDriver();
-    }
-
+    /**
+     * Проверка наличия примера для JUnit5 в Selenide Wiki page
+     */
     @Test
-    void asserTest() {
-        System.out.println("### Test1");
-        $("#firstName").setValue("Egor");
-        $("#lastName").setValue("Egor2");
-        $("#userEmail").setValue("Egor@Egor.Egor");
-        $("[for=gender-radio-1]").click();
-        $("#userNumber").setValue("1234567890");
-        $("#uploadPicture").uploadFile(new File("src/test/resources/pngegg.png"));
-
-        $("#submit").click();
-
-        $("#example-modal-sizes-title-lg").shouldHave(text("Thanks for submitting the form"));
-        $(".table-responsive").shouldHave(text("Egor Egor2"),
-                text("Egor@Egor.Egor"),
-                text("Egor@Egor.Egor"),
-                text("1234567890"),
-                text("pngegg.png")
-                );
-
+    void wikiJUnit5Test() {
+        //Открываем страницу Selenide
+        open("selenide/selenide");
+        //Открываем Wiki Page
+        $("#wiki-tab").click();
+        //Находим поле "Soft assertions" и проходим по ссылке
+        $("#wiki-body").find(byText("Soft assertions")).click();
+        //Убеждаемся что на странице есть пример для JUnit5
+        $("#wiki-body").shouldHave(Condition.text("Using JUnit5 extend test class:"));
     }
+
 }
